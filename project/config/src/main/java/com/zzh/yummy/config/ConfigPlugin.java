@@ -32,7 +32,7 @@ public class ConfigPlugin implements Plugin<Project> {
     public void apply(Project p) {
         this.project = p;
         FatUtils.attach(project);
-        System.out.println("zzh test project=" + p);
+        FatUtils.logAnytime("project=" + p);
         // DirectoryManager.attach(project);
         // project.extensions.create(FatAarExtension.NAME, FatAarExtension);
         // createConfigurations();

@@ -2,6 +2,7 @@ package com.zzh.yummy.config;
 
 import static org.codehaus.groovy.runtime.ResourceGroovyMethods.getText;
 
+import org.codehaus.groovy.runtime.DefaultGroovyMethods;
 import org.codehaus.groovy.runtime.IOGroovyMethods;
 import org.codehaus.groovy.runtime.ResourceGroovyMethods;
 import org.gradle.api.Project;
@@ -28,15 +29,15 @@ public class FatUtils {
     }
 
     public static void logError(String msg) {
-        sProject.getLogger().error("yummy-aar error=" + msg);
+        sProject.getLogger().error("zzh yummy-aar " + msg);
     }
 
     public static void logInfo(String msg) {
-        sProject.getLogger().error("yummy-aar info=" + msg);
+        sProject.getLogger().info("zzh yummy-aar " + msg);
     }
 
     public static void logAnytime(String msg) {
-        sProject.getLogger().error("yummy-aar any=" + msg);
+        DefaultGroovyMethods.println(sProject, "zzh yummy-aar " + msg);
     }
 
     public static void showDir(int indent, File file) throws IOException {
