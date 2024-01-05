@@ -7,6 +7,7 @@ dependencies {
     implementation localGroovy()
     implementation "org.javassist:javassist:3.27.0-GA"
     implementation 'com.android.tools.build:gradle:7.4.2'
+    implementation "io.realm:realm-gradle-plugin:10.13.3-transformer-api"
 }
 
 gradlePlugin {

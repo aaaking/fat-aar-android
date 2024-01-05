@@ -36,8 +36,15 @@ public class ConfigPlugin implements Plugin<Project> {
         DirectoryManager.attach(project);
         project.getExtensions().create(FatAarExtension.NAME, FatAarExtension.class);
         // createConfigurations();
-        // registerTransform();
+        registerTransform();
         // project.afterEvaluate(project1 -> doAfterEvaluate());
+    }
+
+    private void registerTransform() {
+        transform = new RClassesTransform(project);
+        // register in project.afterEvaluate is invalid.
+        // project.android.registerTransform(transform);
+        // io.realm.transformer.RealmTransformer.CompanionObject.register(project);
     }
 
     private void doAfterEvaluate() {
