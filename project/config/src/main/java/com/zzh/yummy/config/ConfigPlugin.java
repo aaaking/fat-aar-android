@@ -31,9 +31,9 @@ public class ConfigPlugin implements Plugin<Project> {
     @Override
     public void apply(Project p) {
         this.project = p;
-        FatUtils.attach(project);
         FatUtils.logAnytime("project=" + p);
-        // DirectoryManager.attach(project);
+        FatUtils.attach(project);
+        DirectoryManager.attach(project);
         // project.extensions.create(FatAarExtension.NAME, FatAarExtension);
         // createConfigurations();
         // registerTransform();
