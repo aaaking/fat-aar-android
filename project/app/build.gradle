@@ -1,4 +1,5 @@
 plugins {
+    id "com.zzh.yummy.config"
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
