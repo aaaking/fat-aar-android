@@ -1,7 +1,9 @@
 package com.zzh.yummy.config;
 
+import org.gradle.api.Action;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.ProjectConfigurationException;
 import org.gradle.api.artifacts.Configuration;
 
 import java.util.ArrayList;
@@ -27,6 +29,24 @@ public class ConfigPlugin implements Plugin<Project> {
 
     private final Collection<Configuration> embedConfigurations = new ArrayList<>();
     @Override
-    public void apply(Project project) {
+    public void apply(Project p) {
+        this.project = p;
+        // checkAndroidPlugin();
+        FatUtils.attach(project);
+        // DirectoryManager.attach(project);
+        // project.extensions.create(FatAarExtension.NAME, FatAarExtension);
+        // createConfigurations();
+        // registerTransform();
+        // project.afterEvaluate(project1 -> doAfterEvaluate());
+    }
+
+    private void checkAndroidPlugin() {
+        if (!project.getPlugins().hasPlugin("com.android.library")) {
+            throw new ProjectConfigurationException("fat-aar-plugin must be applied in project that" + " has android library plugin!", (Iterable<? extends Throwable>) null);
+        }
+    }
+
+    private void doAfterEvaluate() {
+
     }
 }
