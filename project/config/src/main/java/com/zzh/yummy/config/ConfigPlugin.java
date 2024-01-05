@@ -35,7 +35,7 @@ public class ConfigPlugin implements Plugin<Project> {
         FatUtils.attach(project);
         DirectoryManager.attach(project);
         project.getExtensions().create(FatAarExtension.NAME, FatAarExtension.class);
-        // createConfigurations();
+        createConfigurations();
         registerTransform();
         // project.afterEvaluate(project1 -> doAfterEvaluate());
     }
@@ -45,6 +45,17 @@ public class ConfigPlugin implements Plugin<Project> {
         // register in project.afterEvaluate is invalid.
         // project.android.registerTransform(transform);
         // io.realm.transformer.RealmTransformer.CompanionObject.register(project);
+    }
+
+    private void createConfigurations() {
+
+    }
+
+    private void createConfiguration(Configuration embedConf) {
+        embedConf.setVisible(false);
+        embedConf.setTransitive(false);
+        project.getGradle().addListener(new EmbedResolutionListener(project, embedConf));
+        embedConfigurations.add(embedConf);
     }
 
     private void doAfterEvaluate() {
