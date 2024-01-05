@@ -7,6 +7,6 @@ package com.zzh.yummy.config;
  */
 public class Config {
     public static int compileSdkVersion = 34;
-    public static int minSdkVersion = 18;
+    public static int minSdkVersion = 21;
     public static int targetSdkVersion = 33;
 }
