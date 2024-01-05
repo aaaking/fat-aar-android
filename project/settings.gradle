@@ -12,8 +12,11 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+includeBuild("config")
+
+
 rootProject.name = "yummyaar"
 include ':app'
+include ':localaar'
 
-includeBuild("config")
 
