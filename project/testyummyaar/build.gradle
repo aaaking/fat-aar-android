@@ -34,3 +34,7 @@ dependencies {
     implementation(name: 'lib1', ext: 'jar')
     implementation(name: 'config', ext: 'jar')
 }
+
+yummyaar {
+
+}
