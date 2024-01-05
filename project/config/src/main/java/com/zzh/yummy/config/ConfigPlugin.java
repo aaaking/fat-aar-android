@@ -31,19 +31,13 @@ public class ConfigPlugin implements Plugin<Project> {
     @Override
     public void apply(Project p) {
         this.project = p;
-        // checkAndroidPlugin();
         FatUtils.attach(project);
+        System.out.println("zzh test project=" + p);
         // DirectoryManager.attach(project);
         // project.extensions.create(FatAarExtension.NAME, FatAarExtension);
         // createConfigurations();
         // registerTransform();
         // project.afterEvaluate(project1 -> doAfterEvaluate());
-    }
-
-    private void checkAndroidPlugin() {
-        if (!project.getPlugins().hasPlugin("com.android.library")) {
-            throw new ProjectConfigurationException("fat-aar-plugin must be applied in project that" + " has android library plugin!", (Iterable<? extends Throwable>) null);
-        }
     }
 
     private void doAfterEvaluate() {

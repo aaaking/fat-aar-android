@@ -5,6 +5,7 @@ import static org.codehaus.groovy.runtime.ResourceGroovyMethods.getText;
 import org.codehaus.groovy.runtime.IOGroovyMethods;
 import org.codehaus.groovy.runtime.ResourceGroovyMethods;
 import org.gradle.api.Project;
+import org.gradle.api.ProjectConfigurationException;
 
 import java.io.File;
 import java.io.IOException;
@@ -162,6 +163,11 @@ public class FatUtils {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public static void checkLibraryPlugin() {
+        if (!sProject.getPlugins().hasPlugin("com.android.library")) {
+            throw new ProjectConfigurationException("fat-aar-plugin must be applied in project that" + " has android library plugin!", new Throwable());
+        }
     }
 }
