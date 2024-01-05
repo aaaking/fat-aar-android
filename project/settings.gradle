@@ -11,7 +11,7 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         flatDir {
-            dirs 'localaar/libs'
+            dirs 'aar'
         }
     }
 }
@@ -20,6 +20,5 @@ includeBuild("config")
 
 rootProject.name = "yummyaar"
 include ':app'
-include ':localaar'
 
 
