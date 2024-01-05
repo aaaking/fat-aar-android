@@ -4,6 +4,9 @@ apply plugin: 'java-gradle-plugin'
 
 dependencies {
     implementation gradleApi()
+    implementation localGroovy()
+    implementation "org.javassist:javassist:3.27.0-GA"
+    implementation 'com.android.tools.build:gradle:7.4.2'
 }
 
 gradlePlugin {
