@@ -1,17 +1,6 @@
 apply plugin: 'groovy'
 apply plugin: 'java-gradle-plugin'
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
-repositories {
-    mavenCentral()
-    google()
-    maven { url "https://plugins.gradle.org/m2/" }
-}
 
 dependencies {
     implementation gradleApi()
