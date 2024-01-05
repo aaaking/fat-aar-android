@@ -34,7 +34,9 @@ public class ConfigPlugin implements Plugin<Project> {
         FatUtils.logAnytime("project=" + p);
         FatUtils.attach(project);
         DirectoryManager.attach(project);
-        // project.extensions.create(FatAarExtension.NAME, FatAarExtension);
+        if (FatUtils.checkLibraryPlugin()) {
+            project.getExtensions().create(FatAarExtension.NAME, FatAarExtension.class);
+        }
         // createConfigurations();
         // registerTransform();
         // project.afterEvaluate(project1 -> doAfterEvaluate());

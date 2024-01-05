@@ -166,9 +166,10 @@ public class FatUtils {
         }
     }
 
-    public static void checkLibraryPlugin() {
-        if (!sProject.getPlugins().hasPlugin("com.android.library")) {
-            throw new ProjectConfigurationException("fat-aar-plugin must be applied in project that" + " has android library plugin!", new Throwable());
-        }
+    public static boolean checkLibraryPlugin() {
+        // if (!sProject.getPlugins().hasPlugin("com.android.library")) {
+        //     throw new ProjectConfigurationException("fat-aar-plugin must be applied in project that" + " has android library plugin!", new Throwable());
+        // }
+        return sProject.getPlugins().hasPlugin("com.android.library");
     }
 }
