@@ -1,3 +1,5 @@
+import com.zzh.yummy.config.Config
+
 plugins {
     id "com.zzh.yummy.config"
     id 'com.android.application'
@@ -6,12 +8,12 @@ plugins {
 
 android {
     namespace 'com.zzh.yummy.demo'
-    compileSdk 34
+    compileSdk Config.compileSdkVersion
 
     defaultConfig {
         applicationId "com.zzh.yummy.demo"
-        minSdk 18
-        targetSdk 33
+        minSdk Config.minSdkVersion
+        targetSdk Config.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
