@@ -15,7 +15,7 @@ task javadocJar(type: Jar) {
 
 File secretPropsFile = project.rootProject.file('local.properties')
 if (secretPropsFile.exists()) {
-    println "Found secret props file, loading props"
+    println "Found secret props file, loading props ${sourcesJar} "
     Properties p = new Properties()
     p.load(new FileInputStream(secretPropsFile))
     p.each { name, value ->
