@@ -15,7 +15,11 @@ dependencyResolutionManagement {
         }
     }
 }
-includeBuild("config")
+includeBuild("config") {
+    // dependencySubstitution {
+    //     substitute module('com.zzh.yummy.config') using project(':')
+    // }
+}
 
 
 rootProject.name = "yummyaar"
