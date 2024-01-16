@@ -32,6 +32,7 @@ public class FatUtils {
         sProject.getLogger().error("zzh yummy-aar " + msg);
     }
 
+    @Deprecated
     public static void logInfo(String msg) {
         sProject.getLogger().info("zzh yummy-aar " + msg);
     }
