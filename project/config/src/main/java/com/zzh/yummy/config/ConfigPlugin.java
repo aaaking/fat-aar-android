@@ -90,7 +90,10 @@ public class ConfigPlugin implements Plugin<Project> {
 
         try {
             BaseExtension android = android();
+
+            // Transform API 没有单一的替代 API，每个用例都会有新的针对性 API。所有替代 API 都位于 androidComponents {} 代码块中，在 AGP 7.2 中均有提供。
             // android.registerTransform(transform);
+
             for (BuildType buildType : android.getBuildTypes()) {
                 String configName = buildType.getName() + CONFIG_SUFFIX;
                 Configuration configuration = project.getConfigurations().create(configName);
