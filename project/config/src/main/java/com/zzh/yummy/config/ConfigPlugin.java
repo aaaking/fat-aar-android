@@ -4,6 +4,7 @@ import com.android.build.api.dsl.BuildType;
 import com.android.build.api.variant.AndroidComponentsExtension;
 import com.android.build.gradle.BaseExtension;
 import com.android.build.gradle.LibraryExtension;
+import com.android.build.gradle.internal.dsl.ProductFlavor;
 
 import org.gradle.api.Action;
 import org.gradle.api.Plugin;
@@ -100,20 +101,19 @@ public class ConfigPlugin implements Plugin<Project> {
                 createConfiguration(configuration);
                 FatUtils.logAnytime("Creating configuration " + configName);
             }
-            //
-            // project.android.productFlavors.all { flavor ->
-            //         String configName = flavor.name + CONFIG_SUFFIX;
-            //     Configuration configuration = project.configurations.create(configName);
-            //     createConfiguration(configuration);
-            //     FatUtils.logInfo("Creating configuration " + configName);
-            //     project.android.buildTypes.all { buildType ->
-            //             String variantName = flavor.name + buildType.name.capitalize();
-            //         String variantConfigName = variantName + CONFIG_SUFFIX;
-            //         Configuration variantConfiguration = project.configurations.create(variantConfigName);
-            //         createConfiguration(variantConfiguration);
-            //         FatUtils.logInfo("Creating configuration " + variantConfigName);
-            //     }
-            // }
+            for (ProductFlavor flavor : android.getProductFlavors()) {
+                String configName = flavor.getName() + CONFIG_SUFFIX;
+                Configuration configuration = project.getConfigurations().create(configName);
+                createConfiguration(configuration);
+                FatUtils.logAnytime("Creating configuration " + configName);
+                for (BuildType buildType : android.getBuildTypes()) {
+                    String variantName = flavor.getName() + FatUtils.capitalize(buildType.getName());
+                    String variantConfigName = variantName + CONFIG_SUFFIX;
+                    Configuration variantConfiguration = project.getConfigurations().create(variantConfigName);
+                    createConfiguration(variantConfiguration);
+                    FatUtils.logAnytime("Creating configuration " + variantConfigName);
+                }
+            }
         } catch (Exception e) {
             FatUtils.logAnytime("Project " + project.getName() + " get exception=" + e);
         }
