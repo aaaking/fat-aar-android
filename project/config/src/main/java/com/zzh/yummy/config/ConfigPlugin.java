@@ -4,6 +4,7 @@ import com.android.build.api.dsl.BuildType;
 import com.android.build.api.variant.AndroidComponentsExtension;
 import com.android.build.gradle.BaseExtension;
 import com.android.build.gradle.LibraryExtension;
+import com.android.build.gradle.api.LibraryVariant;
 import com.android.build.gradle.internal.dsl.ProductFlavor;
 
 import org.gradle.api.Action;
@@ -11,6 +12,8 @@ import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.ProjectConfigurationException;
 import org.gradle.api.artifacts.Configuration;
+import org.gradle.api.artifacts.ResolvedArtifact;
+import org.gradle.api.artifacts.ResolvedDependency;
 import org.gradle.api.component.SoftwareComponent;
 
 import java.util.ArrayList;
@@ -59,7 +62,6 @@ public class ConfigPlugin implements Plugin<Project> {
     private void createConfigurations() {
         Configuration embedConf = project.getConfigurations().create(CONFIG_NAME);
         createConfiguration(embedConf);
-        FatUtils.logAnytime("Creating configuration embed");
         // for (SoftwareComponent component : project.getComponents()) {
         //     FatUtils.logAnytime("component=" + component);
         // }
@@ -69,12 +71,12 @@ public class ConfigPlugin implements Plugin<Project> {
 
         // Object androidComponents2 = project.getExtensions().getByName("androidComponents");
         // FatUtils.logAnytime("androidComponents2=" + androidComponents2);
-
     }
 
     private void createConfiguration(Configuration embedConf) {
         embedConf.setVisible(false);
         embedConf.setTransitive(false);
+        FatUtils.logAnytime("Creating configuration " + embedConf.getName());
         project.getGradle().addListener(new EmbedResolutionListener(project, embedConf));
         embedConfigurations.add(embedConf);
     }
@@ -99,21 +101,50 @@ public class ConfigPlugin implements Plugin<Project> {
                 String configName = buildType.getName() + CONFIG_SUFFIX;
                 Configuration configuration = project.getConfigurations().create(configName);
                 createConfiguration(configuration);
-                FatUtils.logAnytime("Creating configuration " + configName);
             }
             for (ProductFlavor flavor : android.getProductFlavors()) {
                 String configName = flavor.getName() + CONFIG_SUFFIX;
                 Configuration configuration = project.getConfigurations().create(configName);
                 createConfiguration(configuration);
-                FatUtils.logAnytime("Creating configuration " + configName);
                 for (BuildType buildType : android.getBuildTypes()) {
                     String variantName = flavor.getName() + FatUtils.capitalize(buildType.getName());
                     String variantConfigName = variantName + CONFIG_SUFFIX;
                     Configuration variantConfiguration = project.getConfigurations().create(variantConfigName);
                     createConfiguration(variantConfiguration);
-                    FatUtils.logAnytime("Creating configuration " + variantConfigName);
                 }
             }
+
+            // from fat aar do after evaluate
+            FatAarExtension fatAarExtension = project.getExtensions().findByType(FatAarExtension.class);
+            for (Configuration embedConfiguration : embedConfigurations) {
+                if (fatAarExtension.transitive) {
+                    embedConfiguration.setTransitive(true);
+                }
+            }
+            //
+            //
+            //
+            //
+            // project.android.libraryVariants.all { variant ->
+            //         Collection< ResolvedArtifact > artifacts = new ArrayList()
+            //     Collection<ResolvedDependency> firstLevelDependencies = new ArrayList<>()
+            //     embedConfigurations.each { configuration ->
+            //         if (configuration.name == CONFIG_NAME
+            //                 || configuration.name == variant.getBuildType().name + CONFIG_SUFFIX
+            //                 || configuration.name == variant.getFlavorName() + CONFIG_SUFFIX
+            //                 || configuration.name == variant.name + CONFIG_SUFFIX) {
+            //             Collection<ResolvedArtifact> resolvedArtifacts = resolveArtifacts(configuration)
+            //             artifacts.addAll(resolvedArtifacts)
+            //             artifacts.addAll(dealUnResolveArtifacts(configuration, variant as LibraryVariant, resolvedArtifacts))
+            //             firstLevelDependencies.addAll(configuration.resolvedConfiguration.firstLevelModuleDependencies)
+            //         }
+            //     }
+            //
+            //     if (!artifacts.isEmpty()) {
+            //         def processor = new VariantProcessor(project, variant)
+            //         processor.processVariant(artifacts, firstLevelDependencies, transform)
+            //     }
+            // }
         } catch (Exception e) {
             FatUtils.logAnytime("Project " + project.getName() + " get exception=" + e);
         }
