@@ -2,6 +2,8 @@ package com.zzh.yummy.config;
 
 import static org.codehaus.groovy.runtime.ResourceGroovyMethods.getText;
 
+import com.android.build.gradle.BaseExtension;
+
 import org.codehaus.groovy.runtime.DefaultGroovyMethods;
 import org.codehaus.groovy.runtime.IOGroovyMethods;
 import org.codehaus.groovy.runtime.ResourceGroovyMethods;
@@ -179,5 +181,15 @@ public class FatUtils {
             return s;
         }
         return s.substring(0, 1).toUpperCase() + s.substring(1);
+    }
+
+    public static BaseExtension android(Project project) throws Exception {
+        BaseExtension android = project.getExtensions().findByType(BaseExtension.class);
+        if (android != null) {
+            return android;
+        } else {
+            FatUtils.logAnytime("Project " + project.getName() + " is not an Android project");
+            throw new Exception("Project " + project.getName() + " is not an Android project");
+        }
     }
 }

@@ -28,13 +28,24 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-}
 
-dependencies {
-    implementation(name: 'lib1', ext: 'jar')
-    // implementation(name: 'config', ext: 'jar')
+    // flavorDimensions "default" // deprecated
+    // flavorDimensions = ["default"] // or below
+    flavorDimensions += "1.0.0"
+    productFlavors {
+        flavorTob {
+        }
+
+        flavorZhihu {
+        }
+    }
 }
 
 yummyaar {
 
+}
+
+dependencies {
+    implementation(name: 'lib1', ext: 'jar')
+    // embed(name: 'config', ext: 'jar')
 }
