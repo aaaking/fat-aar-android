@@ -1,4 +1,4 @@
-package com.zzh.yummy.libjava
+package com.zzh.yummy.libaar
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
