@@ -49,7 +49,7 @@ public class ConfigPlugin implements Plugin<Project> {
     @Override
     public void apply(Project p) {
         this.project = p;
-        FatUtils.logAnytime("project=" + p);
+        FatUtils.logAnytime("project=" + p + " gradle version=" + project.getGradle().getGradleVersion());
         FatUtils.attach(project);
         DirectoryManager.attach(project);
         project.getExtensions().create(FatAarExtension.NAME, FatAarExtension.class);
