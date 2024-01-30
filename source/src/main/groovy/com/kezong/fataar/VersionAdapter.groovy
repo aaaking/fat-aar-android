@@ -133,6 +133,7 @@ class VersionAdapter {
             taskPath += "Aar"
             bundleTask = project.tasks.named(taskPath)
         }
+        FatUtils.logAnytime("taskPath=" + taskPath)
         return bundleTask
     }
 
