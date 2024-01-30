@@ -12,7 +12,6 @@ android {
     defaultConfig {
         minSdk Config.minSdkVersion
         targetSdk Config.targetSdkVersion
-
     }
 
     buildTypes {
@@ -33,13 +32,20 @@ android {
     // flavorDimensions = ["default"] // or below
     flavorDimensions += "1.0.0"
     productFlavors {
-        flavorTob {
+        tob {
         }
 
-        flavorZhihu {
+        zhihu {
         }
     }
 }
+
+// project.tasks.withType(Test::class.java).configureEach {
+//     useJUnitPlatform()
+//     testLogging {
+//         setEvents(setOf("passed", "skipped", "failed"))
+//     }
+// }
 
 yummyaar {
 

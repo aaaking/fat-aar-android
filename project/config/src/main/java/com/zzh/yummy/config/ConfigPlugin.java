@@ -21,8 +21,11 @@ import org.gradle.api.artifacts.ResolvedDependency;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import kotlin.Pair;
 
@@ -141,14 +144,17 @@ public class ConfigPlugin implements Plugin<Project> {
                 libExt.onVariants(new VariantSelectorImpl(), new Action<LibraryVariant>() {
                     @Override
                     public void execute(LibraryVariant newLibVar) {
+                        // if ("release".equals(newLibVar.getName())) {
+                        //     return;
+                        // }
                         FatUtils.logAnytime("\n-------------");
                         // todo
                         // https://github.com/runningcode/fladle/issues/269
                         List<Pair<String, String>> list = newLibVar.getProductFlavors();
                         FatUtils.logAnytime("new lib variant product flavors=" + list + " name=" + newLibVar.getName() + " flavorname=" + newLibVar.getFlavorName() + " buildtype=" + newLibVar.getBuildType());
-                        if (list.isEmpty()) {
-                            return;
-                        }
+                        // if (list.isEmpty()) {
+                        //     return;
+                        // }
                         Collection<ResolvedArtifact> artifacts = new ArrayList();
                         Collection<ResolvedDependency> firstLevelDependencies = new ArrayList<>();
                         for (Configuration configuration : embedConfigurations) {

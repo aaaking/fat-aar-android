@@ -14,6 +14,7 @@ import org.gradle.api.internal.tasks.TaskDependencyContainer
 import org.gradle.api.internal.tasks.TaskDependencyResolveContext
 import org.gradle.api.tasks.TaskDependency
 import org.gradle.api.tasks.TaskProvider
+import org.gradle.api.tasks.bundling.AbstractArchiveTask
 import org.gradle.internal.DisplayName
 import org.gradle.internal.Factory
 import org.gradle.internal.component.model.DefaultIvyArtifactName
@@ -133,9 +134,13 @@ class FlavorArtifact {
         File output
         if (FatUtils.compareVersion(project.gradle.gradleVersion, "5.1") >= 0) {
             output = new File(bundle.getDestinationDirectory().getAsFile().get(), bundle.getArchiveFileName().get())
+            FatUtils.logAnytime("task ${project.class} getOutputs= ${bundle.getOutputs().files}")
+            FatUtils.logAnytime("task ${bundle} path= ${bundle.getPath()}")
+            FatUtils.logAnytime("task ${bundle.name} destination dir= ${bundle.getDestinationDirectory().getAsFile().get()}")
         } else {
             output = new File(bundle.destinationDir, bundle.archiveName)
         }
+        FatUtils.logAnytime("task ${bundle.name} file out= ${output}")
         return output
     }
 
